@@ -1,0 +1,6 @@
+{
+  "packages": [
+    "react",
+    "react-dom"
+  ]
+}

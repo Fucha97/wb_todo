@@ -1,0 +1,53 @@
+.template_repo: &repo
+  project: "devops/ci/templates"
+  ref: &ci_tmpl_vers $CI_TMPL_V3_PORTALS
+
+variables:
+  # hold pls
+  CI_TMPL_PROJECT_VERSION: *ci_tmpl_vers
+  CI_TMPL_DEVELOPMENT_FLOW: "TBD"
+  # ci vars
+  DOCKERFILE_DIR: ./config/deploy/docker
+  # test image
+  UNIVERSAL_IMAGE: harbor.wildberries.ru/portal-frontend-services/devops/frontend-services-node
+  UNIVERSAL_VER: "v18.9.0"
+  # list of services for build & deploy
+  CI_TMPL_HELM_RELEASE_NAMES: "feedback-questions-front"
+  CI_TMPL_HELM_RELEASE_NAMESPACE: frontend-services
+  # front vars
+  APP_STATIC_NAMESPACE: feedback-questions-front
+  WB_STATIC_URL: https://mstatic.wbstatic.net
+  SERVICE_URL: http://renderapi.render.svc.k8s.render-dp/api/v1/upload
+  GATSBY_SENTRY_RELEASE: ${CI_COMMIT_TAG}
+  MAKEFILEPATH: ./config/deploy/Makefile
+
+  CI_TMPL_HELM_CUSTOM_MENU_AUTH_TOKEN_STAGE: $MENU_AUTH_TOKEN_STAGE
+  CI_TMPL_HELM_CUSTOM_MENU_AUTH_TOKEN_PROD: $MENU_AUTH_TOKEN_PROD
+  CI_TMPL_HELM_CUSTOM_SERVICE_NAME: $CI_TMPL_HELM_RELEASE_NAMES
+  CI_TMPL_HELM_CUSTOM_MENU_SERVICE_URL_STAGE: http://menu.suppliers-portal-ru.svc.k8s.stage-dp
+  CI_TMPL_HELM_CUSTOM_MENU_SERVICE_URL_PROD: http://menu.suppliers-portal-ru.svc.k8s.portal-dp
+
+  REGISTRY_PROJECT: portal-frontend-services
+
+  BUILD_CUSTOM_ARGS: "CI_COMMIT_TAG=$CI_COMMIT_TAG,REACT_APP_YANDEX_KEY=$REACT_APP_YANDEX_KEY,APP_STATIC_NAMESPACE=$APP_STATIC_NAMESPACE,CDN_API_TOKEN=$CDN_API_TOKEN,WB_STATIC_URL=$WB_STATIC_URL,SERVICE_URL=$SERVICE_URL"
+
+stages:
+  - checks
+  - frontend_complex
+  - generate dynamic pipeline
+  - external ci
+  - build
+  - deploy
+
+frontend_complex:
+  image: ${UNIVERSAL_IMAGE}:${UNIVERSAL_VER}
+  stage: frontend_complex
+  allow_failure: false
+  script:
+    - make -f ${MAKEFILEPATH} frontend_complex
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+include:
+  - {<<: *repo, file: /pipelines/universal.yml}
+
