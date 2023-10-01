@@ -1,3 +1,3 @@
-import home from './home/route';
+import todos from '@/pages/todos/route';
 
-export const routes = [home];
+export const routes = [todos];
