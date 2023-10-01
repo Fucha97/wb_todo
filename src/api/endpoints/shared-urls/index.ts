@@ -1,4 +1,4 @@
-export const ENDPOINT_EU_PORTAL_DEV = '';
+export const ENDPOINT_EU_PORTAL_DEV = 'api/v1';
 // export const ENDPOINT_EU_PORTAL_PROD = process.env.ENDPOINT_EU_PORTAL;
 export const ENDPOINT_EU_PORTAL_PROD =
   'http://suppliers.suppliers-portal-eu.svc.k8s.test';
