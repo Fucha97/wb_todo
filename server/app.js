@@ -1,16 +1,16 @@
-/* eslint-disable no-console */
 const dotenv = require('dotenv');
 const createError = require('http-errors');
 const cors = require('cors');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const { devServerLog } = require('../utils/dev-server-logger');
 const { rootRouter } = require('./router/root');
 
 // prepare config
 dotenv.config();
 const app = express();
-const PORT = process.env.SERVER_PORT || 8081;
+const PORT = 8080;
 
 // middlewares
 app.use(cors({ origin: '*' }));
@@ -33,4 +33,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 });
 
-app.listen(PORT, () => console.info(`mock server started on port ${PORT}`));
+app.listen(PORT, () => {
+  devServerLog('info', `mock server started on port ${PORT}`);
+});

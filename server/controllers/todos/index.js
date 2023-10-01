@@ -1,0 +1,33 @@
+const { todosModel } = require('../../models/todos');
+
+module.exports.todosGetController = async (req, res) => {
+  const todos = await todosModel.value();
+  res.status(200).json({
+    todos,
+  });
+};
+
+module.exports.todosDeleteController = async (req, res) => {
+  await todosModel.remove({ id: req.body.id }).write();
+  res.status(200).json({});
+};
+
+module.exports.todosPostController = async (req, res) => {
+  await todosModel
+    .push({
+      id: new Date().getTime().toString(),
+      title: req?.body?.title,
+      isComplete: false,
+    })
+    .write();
+  res.status(200).json({});
+};
+
+module.exports.todosPutController = async (req, res) => {
+  const {
+    todo: { id, ...restFields },
+  } = req.body;
+
+  await todosModel.find({ id }).assign(restFields).write();
+  res.status(200).json({});
+};
