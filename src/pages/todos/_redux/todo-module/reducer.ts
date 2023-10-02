@@ -7,7 +7,6 @@ import {
 export const initialTodoSlice: TodoStateType = {
   isLoading: false,
   todos: [],
-  newTodoTitle: '',
   updateTodoId: null,
 };
 
@@ -25,11 +24,6 @@ export const todoReducer: Reducer<TodoStateType> = (
       return {
         ...state,
         todos: payload,
-      };
-    case ETodosActions.SET_NEW_TODO_TITLE:
-      return {
-        ...state,
-        newTodoTitle: payload,
       };
     case ETodosActions.SET_UPDATE_TODO_ID:
       return {

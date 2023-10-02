@@ -22,7 +22,6 @@ export type TodoType = {
 export type TodoStateType = {
   isLoading: boolean;
   todos: Array<TodoType>;
-  newTodoTitle: string;
   updateTodoId: string | null;
 };
 
