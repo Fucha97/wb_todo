@@ -25,14 +25,15 @@ export const TodoCard = ({
   deleteTodo,
   ...todoProps
 }: PropsType) => {
-  const onUpdateClick: (event: ButtonClickEventType) => void = () => {
+  const handlerUpdateTodoClick: (event: ButtonClickEventType) => void = () => {
     onUpdateTodoClick(todoProps.id);
   };
-  const onCompletedChange: (event: CheckboxChangeEventType) => void = () => {
+  const handlerCompletedChange: (
+    event: CheckboxChangeEventType,
+  ) => void = () => {
     updateTodo({ ...todoProps, isComplete: !todoProps.isComplete });
   };
-  const onDeleteClick = () => {
-    console.log('test123');
+  const handlerDeleteClick = () => {
     deleteTodo(todoProps.id);
   };
 
@@ -43,7 +44,7 @@ export const TodoCard = ({
           checked={todoProps.isComplete}
           id={todoProps.id}
           name="content"
-          onChange={onCompletedChange}
+          onChange={handlerCompletedChange}
           toggle
         />
       </div>
@@ -53,8 +54,16 @@ export const TodoCard = ({
         </div>
       </div>
       <div className={cn(`${BLOCK_NAME}__controls`)}>
-        <ButtonLink onClick={onUpdateClick} text="Update" variant="accent" />
-        <ButtonLink onClick={onDeleteClick} text="Delete" variant="accent" />
+        <ButtonLink
+          onClick={handlerUpdateTodoClick}
+          text="Update"
+          variant="accent"
+        />
+        <ButtonLink
+          onClick={handlerDeleteClick}
+          text="Delete"
+          variant="accent"
+        />
       </div>
     </div>
   );

@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { connect } from 'react-redux';
 import { ButtonVariant, Modal, SimpleInput } from '@wildberries/ui-kit';
 import { SimpleInputPropsType } from '@wildberries/ui-kit/lib/simple-input/types';
 import {
   TodoType,
-  TodoStorageStateType,
   selectTodosLoading,
   selectUpdateTodo,
   selectUpdateTodoModalOpen,
@@ -24,27 +22,25 @@ export const UpdateTodoModal = ({
   updateTodoData,
   loading,
   isModalOpen,
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   setUpdateTodoId,
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   updateTodo,
 }: PropsType) => {
-  const [todoForm, setTodoForm] = useState<TodoType>(updateTodoData);
-  const todoUpdateDisabled = todoForm?.title?.trim().length === 0;
+  const [currentTodo, setCurrentTodo] = useState<TodoType>(updateTodoData);
+  const todoUpdateDisabled = currentTodo?.title?.trim().length === 0;
 
   const handleCloseModalClick = useCallback(() => {
     setUpdateTodoId(null);
   }, [setUpdateTodoId]);
 
   const handeUpdateTodoClick = useCallback(() => {
-    updateTodo(todoForm);
+    updateTodo(currentTodo);
     setUpdateTodoId(null);
-  }, [todoForm, updateTodo, setUpdateTodoId]);
+  }, [currentTodo, updateTodo, setUpdateTodoId]);
 
-  const handleChangeNewTodoTitle: SimpleInputPropsType['onChange'] = ({
+  const handleChangeTodoTitle: SimpleInputPropsType['onChange'] = ({
     value,
   }) => {
-    setTodoForm((form) => ({
+    setCurrentTodo((form) => ({
       ...form,
       title: value,
     }));
@@ -69,7 +65,7 @@ export const UpdateTodoModal = ({
   );
 
   useEffect(() => {
-    setTodoForm(updateTodoData);
+    setCurrentTodo(updateTodoData);
   }, [updateTodoData]);
 
   return (
@@ -83,25 +79,10 @@ export const UpdateTodoModal = ({
       <SimpleInput
         id="update-todo-item"
         name="update-todo-item"
-        onChange={handleChangeNewTodoTitle}
+        onChange={handleChangeTodoTitle}
         placeholder="new title"
-        value={todoForm?.title || ''}
+        value={currentTodo?.title || ''}
       />
     </Modal>
   );
 };
-
-const masStateToProps = (state: TodoStorageStateType) => ({
-  loading: selectTodosLoading(state),
-  isModalOpen: selectUpdateTodoModalOpen(state),
-  updateTodoData: selectUpdateTodo(state),
-});
-
-const mapDispatchToProps = {
-  updateTodo: updateTodoAction,
-  setUpdateTodoId: setUpdateTodoIdAction,
-};
-export const ConnectedUpdateTodoModal = connect(
-  masStateToProps,
-  mapDispatchToProps,
-)(UpdateTodoModal);
