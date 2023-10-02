@@ -6,15 +6,17 @@ import {
   startLoadingAction,
   stopLoadingAction,
 } from '../_redux/todo-module/actions';
+import { IResponse } from '@mihanizm56/fetch-api';
 
 export const getTodosConfig = (): InitLoadManagerRequestOptionsType => {
   const config: InitLoadManagerRequestOptionsType = {
     request: getTodosRequest,
     actionSuccess: setTodosAction,
-    responseDataFormatter: (response: {
-      todos: Array<TodoType>;
-    }): Array<TodoType> => response.todos,
+    responseDataFormatter: ({ data } : IResponse<{todos: Array<TodoType>}>): Array<TodoType> => data.todos,
   };
+
+
+
 
   return {
     ...config,

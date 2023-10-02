@@ -3,14 +3,14 @@ import { getTodosEndpoint } from '@/api/endpoints';
 import { TodoType } from '@/pages/todos/_redux/todo-module';
 
 export type UpdateTodoParamsType = {
-  todo: TodoType;
+  updatedTodo: TodoType;
 };
 
 export const makeRequestConfig = ({
-  todo,
+  updatedTodo,
 }: UpdateTodoParamsType): IRequestParams => ({
   endpoint: getTodosEndpoint(),
   body: {
-    todo,
+    updatedTodo,
   },
 });

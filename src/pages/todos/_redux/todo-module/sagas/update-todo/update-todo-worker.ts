@@ -4,37 +4,29 @@ import {
   TodoType,
   setTodosAction,
   setTodosLoadingAction,
+  updateTodoAction,
 } from '@/pages/todos/_redux/todo-module';
 import { updateTodoRequest } from '@/api/requests/todos/update';
 import { getTodosRequest } from '@/api/requests/todos/get';
 
 type IParams = {
-  todo: TodoType;
+  updatedTodo: TodoType;
 };
 
-export function* updateTodoWorkerSaga({ todo }: IParams) {
+export function* updateTodoWorkerSaga({ updatedTodo }: IParams) {
   try {
     yield put(setTodosLoadingAction(true));
 
-    const { error, errorText }: IResponse<never> = yield call(
+    const { error, data, errorText }: IResponse<{updatedTodo : TodoType}> = yield call(
       updateTodoRequest,
       {
-        todo,
+        updatedTodo,
       },
     );
 
     if (error) throw new Error(errorText);
 
-    const {
-      error: getTodosError,
-      data,
-      errorText: getTodosErrorText,
-    }: IResponse<{ todos: Array<TodoType> }> = yield call(getTodosRequest);
-    if (getTodosError) {
-      throw new Error(getTodosErrorText);
-    }
-
-    yield put(setTodosAction(data.todos));
+    yield put(updateTodoAction(data.updatedTodo));
   } catch (error) {
     console.error(error);
   } finally {

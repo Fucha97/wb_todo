@@ -10,8 +10,8 @@ export const UPDATE_TODO_WATCHER_SAGA_NAME = 'UPDATE_TODO_WATCHER_SAGA_NAME';
 export function* updateTodoWatcherSaga() {
   while (true) {
     const { payload }: ReturnType<typeof updateTodoActionSaga> = yield take(
-      ETodosActions.UPDATE_TODO,
+      ETodosActions.UPDATE_TODO_SAGA,
     );
-    yield fork(updateTodoWorkerSaga, { todo: payload });
+    yield fork(updateTodoWorkerSaga, { updatedTodo: payload });
   }
 }

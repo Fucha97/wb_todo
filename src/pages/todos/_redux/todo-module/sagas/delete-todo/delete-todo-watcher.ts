@@ -7,7 +7,7 @@ export const DELETE_TODO_WATCHER_SAGA_NAME = 'DELETE_TODO_WATCHER_SAGA_NAME';
 export function* deleteTodoWatcherSaga() {
   while (true) {
     const { payload }: ReturnType<typeof deleteTodoActionSaga> = yield take(
-      ETodosActions.DELETE_TODO,
+      ETodosActions.DELETE_TODO_SAGA,
     );
     yield fork(deleteTodoWorkerSaga, { id: payload });
   }
