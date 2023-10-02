@@ -13,7 +13,9 @@ type ParamsType = {
 
 export function* deleteTodoWorkerSaga({ id }: ParamsType) {
   try {
-    const currentState = yield select();
+    const currentState = yield select(
+      (state) => state['todo-module_todosSlice'],
+    );
 
     yield put(setTodosLoadingAction(true));
 

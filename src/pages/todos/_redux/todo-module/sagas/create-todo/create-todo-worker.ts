@@ -14,7 +14,9 @@ type ParamsType = {
 
 export function* createTodoWorkerSaga(newTodoParams: ParamsType) {
   try {
-    const currentState = yield select();
+    const currentState = yield select(
+      (state) => state['todo-module_todosSlice'],
+    );
 
     yield put(setTodosLoadingAction(true));
 
