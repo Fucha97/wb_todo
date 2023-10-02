@@ -19,10 +19,6 @@ export const selectTodos = createSelector(
   ({ todos }) => todos,
 );
 
-export const selectNewTodoTitle = createSelector(
-  [selectTodoSlice],
-  ({ newTodoTitle }) => newTodoTitle,
-);
 
 export const selectUpdateTodoModalOpen = createSelector(
   [selectTodoSlice],

@@ -2,7 +2,6 @@ import { call, put } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import {
   TodoType,
-  setNewTodoTitleAction,
   setTodosAction,
   setTodosLoadingAction,
 } from '@/pages/todos/_redux/todo-module';
@@ -38,7 +37,6 @@ export function* createTodoWorkerSaga({ title }: ParamsType) {
     }
 
     yield put(setTodosAction(data.todos));
-    yield put(setNewTodoTitleAction(''));
   } catch (error) {
     console.error(error);
   } finally {
