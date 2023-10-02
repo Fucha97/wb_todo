@@ -6,16 +6,21 @@
     border-radius: 8px;
     height: 100%;
     padding: 16px;
-
+    
     &__newTodo {
       align-items: center;
       display: flex;
       gap: 12px;
-      width: 100%;
+      flex-direction: column;
+      margin-bottom: 48px;
     }
   
-  &__input {
+  &__inputs_wrapper {
     flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 30%;
   }
 
 }

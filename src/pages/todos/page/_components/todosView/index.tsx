@@ -2,8 +2,8 @@ import { memo } from 'react';
 import classnames from 'classnames/bind';
 import { connect } from 'react-redux';
 import {
-  createTodoAction,
-  deleteTodoAction,
+  createTodoActionSaga,
+  deleteTodoActionSaga,
   getTodosAction,
   selectTodos,
   selectTodosLoading,
@@ -11,7 +11,7 @@ import {
   selectUpdateTodoModalOpen,
   setUpdateTodoIdAction,
   TodoStorageStateType,
-  updateTodoAction,
+  updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
 import { NewTodoForm } from './components/newTodoForm';
 import { UpdateTodoModal } from './components/updateTodoModal';
@@ -23,14 +23,14 @@ const cn = classnames.bind(styles);
 
 type PropsType = {
   loading: ReturnType<typeof selectTodosLoading>;
-  createTodo: typeof createTodoAction;
+  createTodo: typeof createTodoActionSaga;
   updateTodoData: ReturnType<typeof selectUpdateTodo>;
   isModalOpen: ReturnType<typeof selectUpdateTodoModalOpen>;
-  updateTodo: typeof updateTodoAction;
+  updateTodo: typeof updateTodoActionSaga;
   setUpdateTodoId: typeof setUpdateTodoIdAction;
   todos: ReturnType<typeof selectTodos>;
   getTodos: typeof getTodosAction;
-  deleteTodo: typeof deleteTodoAction;
+  deleteTodo: typeof deleteTodoActionSaga;
 };
 
 export const TodosView = memo(
@@ -74,11 +74,11 @@ const mapStateToProps = (state: TodoStorageStateType) => ({
   isModalOpen: selectUpdateTodoModalOpen(state),
 });
 const mapDispatchToProps = {
-  createTodo: createTodoAction,
-  updateTodo: updateTodoAction,
+  createTodo: createTodoActionSaga,
+  updateTodo: updateTodoActionSaga,
   setUpdateTodoId: setUpdateTodoIdAction,
   getTodos: getTodosAction,
-  deleteTodo: deleteTodoAction,
+  deleteTodo: deleteTodoActionSaga,
 };
 
 export const ConnectedWrapper = connect(
