@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import {
   getTodosAction,
   selectTodos,
-  deleteTodoAction,
-  updateTodoAction,
+  deleteTodoActionSaga,
+  updateTodoActionSaga,
   setUpdateTodoIdAction,
 } from '@/pages/todos/_redux/todo-module';
 import { TodoCard } from '@/pages/todos/page/_components/todosView/components/todoCard';
@@ -11,8 +11,8 @@ import { TodoCard } from '@/pages/todos/page/_components/todosView/components/to
 type PropsType = {
   todos: ReturnType<typeof selectTodos>;
   setUpdateTodoId: typeof setUpdateTodoIdAction;
-  updateTodo: typeof updateTodoAction;
-  deleteTodo: typeof deleteTodoAction;
+  updateTodo: typeof updateTodoActionSaga;
+  deleteTodo: typeof deleteTodoActionSaga;
   getTodos: typeof getTodosAction;
 };
 
@@ -29,7 +29,7 @@ export const TodoList = ({
 
   return (
     <div>
-      {todos.map(({ id, isComplete, title }) => (
+      {todos.map(({ id, isComplete, title,description, createdAt }) => (
         <TodoCard
           key={id}
           deleteTodo={deleteTodo}
@@ -38,6 +38,8 @@ export const TodoList = ({
           onUpdateTodoClick={setUpdateTodoId}
           title={title}
           updateTodo={updateTodo}
+          createdAt={createdAt}
+          description={description}
         />
       ))}
     </div>

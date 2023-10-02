@@ -7,14 +7,16 @@ import {
   selectUpdateTodo,
   selectUpdateTodoModalOpen,
   setUpdateTodoIdAction,
-  updateTodoAction,
+  updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
+import { TRANSLATIONS } from '@/pages/todos/_constants/translations';
+import i18next from 'i18next';
 
 type PropsType = {
   updateTodoData: ReturnType<typeof selectUpdateTodo>;
   isModalOpen: ReturnType<typeof selectUpdateTodoModalOpen>;
   loading: ReturnType<typeof selectTodosLoading>;
-  updateTodo: typeof updateTodoAction;
+  updateTodo: typeof updateTodoActionSaga;
   setUpdateTodoId: typeof setUpdateTodoIdAction;
 };
 
@@ -45,6 +47,17 @@ export const UpdateTodoModal = ({
       title: value,
     }));
   };
+
+  const handleChangeTodoDescription: SimpleInputPropsType['onChange'] = ({
+    value,
+  }) => {
+    setCurrentTodo((form) => ({
+      ...form,
+      description: value,
+    }));
+  };
+
+  
 
   const actionsConfig = useMemo(
     () => ({
@@ -80,8 +93,15 @@ export const UpdateTodoModal = ({
         id="update-todo-item"
         name="update-todo-item"
         onChange={handleChangeTodoTitle}
-        placeholder="new title"
+        placeholder={i18next.t(TRANSLATIONS.updateTodoForm.title)}
         value={currentTodo?.title || ''}
+      />
+       <SimpleInput
+        id="update-todo-item"
+        name="update-todo-item"
+        onChange={handleChangeTodoDescription}
+        placeholder={i18next.t(TRANSLATIONS.updateTodoForm.description)}
+        value={currentTodo?.description || ''}
       />
     </Modal>
   );

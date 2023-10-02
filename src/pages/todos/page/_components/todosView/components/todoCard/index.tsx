@@ -36,7 +36,6 @@ export const TodoCard = ({
   const handlerDeleteClick = () => {
     deleteTodo(todoProps.id);
   };
-
   return (
     <div className={cn(BLOCK_NAME)}>
       <div className={cn(`${BLOCK_NAME}__toggle`)}>
@@ -51,6 +50,16 @@ export const TodoCard = ({
       <div className={cn(`${BLOCK_NAME}__content`)}>
         <div className={cn(`${BLOCK_NAME}__truncate`)}>
           <Text color="black" size="h2" text={todoProps.title} />
+        </div>
+        <div className={cn(`${BLOCK_NAME}__truncate`)}>
+        <Text 
+        color="black" 
+        size="h5-bold"
+        text={`Created date: ${todoProps.createdAt}`}
+        />
+        </div>
+        <div className={cn(`${BLOCK_NAME}__truncate`)}>
+          <Text color="black" size="h3-bold" text={todoProps.description} />
         </div>
       </div>
       <div className={cn(`${BLOCK_NAME}__controls`)}>
