@@ -2,4 +2,3 @@
 . "$(dirname "$0")/_/husky.sh"
 
 node cli/_utils/ci-utils/precommit-runner/runner.js
-
