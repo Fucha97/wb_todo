@@ -19,7 +19,6 @@ export const selectTodos = createSelector(
   ({ todos }) => todos,
 );
 
-
 export const selectUpdateTodoModalOpen = createSelector(
   [selectTodoSlice],
   ({ updateTodoId }) => Boolean(updateTodoId),
@@ -29,4 +28,3 @@ export const selectUpdateTodo = createSelector(
   [selectTodoSlice],
   ({ todos, updateTodoId }) => todos.find((todo) => todo.id === updateTodoId),
 );
-

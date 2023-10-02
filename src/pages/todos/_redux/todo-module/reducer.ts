@@ -33,18 +33,21 @@ export const todoReducer: Reducer<TodoStateType> = (
     case ETodosActions.DELETE_TODO:
       return {
         ...state,
-        todos: [...state.todos.filter(todoItem => todoItem.id !== payload)],
+        todos: [...state.todos.filter((todoItem) => todoItem.id !== payload)],
       };
-      case ETodosActions.UPDATE_TODO:
-        return {
-          ...state,
-          todos: [...state.todos.map(todoItem => {
+    case ETodosActions.UPDATE_TODO:
+      return {
+        ...state,
+        todos: [
+          ...state.todos.map((todoItem) => {
             if (todoItem.id === payload.id) {
               return payload;
             }
-            return todoItem
-          })],
-        };  
+
+            return todoItem;
+          }),
+        ],
+      };
     case ETodosActions.SET_UPDATE_TODO_ID:
       return {
         ...state,

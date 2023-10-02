@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ButtonVariant, Modal, SimpleInput } from '@wildberries/ui-kit';
 import { SimpleInputPropsType } from '@wildberries/ui-kit/lib/simple-input/types';
+import i18next from 'i18next';
 import {
   TodoType,
   selectTodosLoading,
@@ -10,7 +11,6 @@ import {
   updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
 import { TRANSLATIONS } from '@/pages/todos/_constants/translations';
-import i18next from 'i18next';
 
 type PropsType = {
   updateTodoData: ReturnType<typeof selectUpdateTodo>;
@@ -57,8 +57,6 @@ export const UpdateTodoModal = ({
     }));
   };
 
-  
-
   const actionsConfig = useMemo(
     () => ({
       actionButton: {
@@ -96,7 +94,7 @@ export const UpdateTodoModal = ({
         placeholder={i18next.t(TRANSLATIONS.updateTodoForm.title)}
         value={currentTodo?.title || ''}
       />
-       <SimpleInput
+      <SimpleInput
         id="update-todo-item"
         name="update-todo-item"
         onChange={handleChangeTodoDescription}

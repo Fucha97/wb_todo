@@ -5,17 +5,17 @@ import { responseSchema } from './response-schema';
 
 export type CreateTodoParamsType = {
   title: TodoType['title'];
-  description?: TodoType['description']
+  description?: TodoType['description'];
 };
 
 export const makeRequestConfig = ({
   title,
-  description
+  description,
 }: CreateTodoParamsType): IRequestParams => ({
   endpoint: getTodosEndpoint(),
   responseSchema,
   body: {
     title,
-    description
+    description,
   },
 });

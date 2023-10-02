@@ -29,17 +29,17 @@ export const TodoList = ({
 
   return (
     <div>
-      {todos.map(({ id, isComplete, title,description, createdAt }) => (
+      {todos.map(({ id, isComplete, title, description, createdAt }) => (
         <TodoCard
           key={id}
+          createdAt={createdAt}
           deleteTodo={deleteTodo}
+          description={description}
           id={id}
           isComplete={isComplete}
           onUpdateTodoClick={setUpdateTodoId}
           title={title}
           updateTodo={updateTodo}
-          createdAt={createdAt}
-          description={description}
         />
       ))}
     </div>

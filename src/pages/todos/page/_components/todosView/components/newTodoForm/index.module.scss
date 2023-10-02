@@ -2,25 +2,24 @@
 @import "@wildberries/ui-kit/lib/styles/media.module.scss";
 
 .NewTodoForm {
-    background-color: $White;
-    border-radius: 8px;
-    height: 100%;
-    padding: 16px;
-    
-    &__newTodo {
-      align-items: center;
-      display: flex;
-      gap: 12px;
-      flex-direction: column;
-      margin-bottom: 48px;
-    }
-  
-  &__inputs_wrapper {
-    flex-grow: 2;
+  background-color: $White;
+  border-radius: 8px;
+  height: 100%;
+  padding: 16px;
+
+  &__newTodo {
+    align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  &__inputs_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
     gap: 8px;
     width: 30%;
   }
-
 }

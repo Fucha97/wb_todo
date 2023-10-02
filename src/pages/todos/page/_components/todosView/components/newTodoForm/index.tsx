@@ -41,7 +41,7 @@ export const NewTodoForm = ({ loading, createTodo }: PropsType) => {
   };
 
   const handleTodoCreate: (event?: ButtonClickEventType) => void = () => {
-    createTodo({title: newTodoTitle, description: newTodoDescription});
+    createTodo({ title: newTodoTitle, description: newTodoDescription });
     setNewTodoTitle('');
     setNewTodoDescription('');
   };

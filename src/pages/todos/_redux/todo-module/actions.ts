@@ -17,7 +17,6 @@ export const getTodosAction: BaseAction = () => ({
   type: ETodosActions.GET_TODOS,
 });
 
-
 export const setTodosAction: Action<TodoStateType['todos']> = (payload) => ({
   type: ETodosActions.SET_TODOS,
   payload,
@@ -28,7 +27,10 @@ export const createTodoAction: Action<TodoType> = (payload) => ({
   payload,
 });
 
-export const createTodoActionSaga: Action<{title : TodoType['title'], description? : TodoType['description']}> = (payload) => ({
+export const createTodoActionSaga: Action<{
+  title: TodoType['title'];
+  description?: TodoType['description'];
+}> = (payload) => ({
   type: ETodosActions.CREATE_TODO_SAGA,
   payload,
 });
@@ -46,7 +48,7 @@ export const updateTodoActionSaga: Action<TodoType> = (payload) => ({
 export const deleteTodoAction: Action<TodoType['id']> = (payload) => ({
   type: ETodosActions.DELETE_TODO,
   payload,
-})
+});
 
 export const deleteTodoActionSaga: Action<TodoType['id']> = (payload) => ({
   type: ETodosActions.DELETE_TODO_SAGA,
@@ -64,4 +66,3 @@ export const setTodosLoadingAction: Action<TodoStateType['isLoading']> = (
   type: ETodosActions.SET_TODOS_LOADING,
   payload,
 });
-
