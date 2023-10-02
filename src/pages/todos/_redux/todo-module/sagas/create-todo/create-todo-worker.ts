@@ -1,33 +1,31 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import {
   TodoType,
   setTodosLoadingAction,
-  createTodoAction,
+  setTodosAction,
 } from '@/pages/todos/_redux/todo-module';
 import { createTodoRequest } from '@/api/requests/todos/create';
-import { getTodosRequest } from '@/api/requests/todos/get';
 
 type ParamsType = {
   title: TodoType['title'];
-  description?: TodoType['description']
+  description?: TodoType['description'];
 };
 
 export function* createTodoWorkerSaga(newTodoParams: ParamsType) {
   try {
+    const currentState = yield select();
+
     yield put(setTodosLoadingAction(true));
 
-    const { error, data, errorText }: IResponse<{newTodo: TodoType}> = yield call(
-      createTodoRequest,
-      newTodoParams,
-    );
-
+    const { error, data, errorText }: IResponse<{ newTodo: TodoType }> =
+      yield call(createTodoRequest, newTodoParams);
 
     if (error) {
       throw new Error(errorText);
     }
-    
-    yield put(createTodoAction(data.newTodo));
+    const currentTodos = [...currentState.todos, data.newTodo];
+    yield put(setTodosAction(currentTodos));
   } catch (error) {
     console.error(error);
   } finally {

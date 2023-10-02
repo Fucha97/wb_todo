@@ -1,13 +1,11 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import {
   TodoType,
-  setTodosAction,
   setTodosLoadingAction,
-  updateTodoAction,
+  setTodosAction,
 } from '@/pages/todos/_redux/todo-module';
 import { updateTodoRequest } from '@/api/requests/todos/update';
-import { getTodosRequest } from '@/api/requests/todos/get';
 
 type IParams = {
   updatedTodo: TodoType;
@@ -15,18 +13,27 @@ type IParams = {
 
 export function* updateTodoWorkerSaga({ updatedTodo }: IParams) {
   try {
+    const currentState = yield select();
+
     yield put(setTodosLoadingAction(true));
 
-    const { error, data, errorText }: IResponse<{updatedTodo : TodoType}> = yield call(
-      updateTodoRequest,
-      {
+    const { error, data, errorText }: IResponse<{ updatedTodo: TodoType }> =
+      yield call(updateTodoRequest, {
         updatedTodo,
-      },
-    );
+      });
 
     if (error) throw new Error(errorText);
 
-    yield put(updateTodoAction(data.updatedTodo));
+    const currentTodos = [
+      ...currentState.todos.map((todoItem) => {
+        if (todoItem.id === data.updatedTodo.id) {
+          return data.updatedTodo;
+        }
+
+        return todoItem;
+      }),
+    ];
+    yield put(setTodosAction(currentTodos));
   } catch (error) {
     console.error(error);
   } finally {

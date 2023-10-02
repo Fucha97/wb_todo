@@ -1,7 +1,10 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import { deleteTodoRequest } from '@/api/requests/todos/delete';
-import { deleteTodoAction, setTodosLoadingAction } from '@/pages/todos/_redux/todo-module';
+import {
+  setTodosAction,
+  setTodosLoadingAction,
+} from '@/pages/todos/_redux/todo-module';
 import { TodoType } from '../../_types';
 
 type ParamsType = {
@@ -10,18 +13,21 @@ type ParamsType = {
 
 export function* deleteTodoWorkerSaga({ id }: ParamsType) {
   try {
+    const currentState = yield select();
+
     yield put(setTodosLoadingAction(true));
 
-    const { error, data,  errorText }: IResponse<{id : string}> = yield call(
+    const { error, data, errorText }: IResponse<{ id: string }> = yield call(
       deleteTodoRequest,
       {
         id,
       },
     );
     if (error) throw new Error(errorText);
-
-    yield put (deleteTodoAction(data.id));
-
+    const currentTodos = [
+      ...currentState.todos.filter((todoItem) => todoItem.id !== data.id),
+    ];
+    yield put(setTodosAction(currentTodos));
   } catch (error) {
     console.error(error);
   } finally {
