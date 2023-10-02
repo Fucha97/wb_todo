@@ -1,0 +1,11 @@
+{
+    "title": "TodoWB",
+    "newTodoForm": {
+      "title" : "Введите название новой задачи", 
+      "description": "Введите описание новой задачи"
+    },
+    "updateTodoForm" : {
+      "title" : "Введите новое название",
+      "description" : "Введите новое описание"
+    }
+  }
