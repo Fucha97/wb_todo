@@ -3,31 +3,52 @@ const { todosModel } = require('../../models/todos');
 module.exports.todosGetController = async (req, res) => {
   const todos = await todosModel.value();
   res.status(200).json({
-    todos,
+    additionalErrors: null,
+    data: { todos },
+    error: false,
+    errorText: '',
   });
 };
 
 module.exports.todosDeleteController = async (req, res) => {
-  await todosModel.remove({ id: req.body.id }).write();
-  res.status(200).json({});
+  const id = req.body.id;
+  await todosModel.remove({ id }).write();
+  res.status(200).json({
+    additionalErrors: null,
+    data: { id },
+    error: false,
+    errorText: '',
+  });
 };
 
 module.exports.todosPostController = async (req, res) => {
-  await todosModel
-    .push({
-      id: new Date().getTime().toString(),
-      title: req?.body?.title,
-      isComplete: false,
-    })
-    .write();
-  res.status(200).json({});
+  const currentDate = new Date();
+  const newTodo = {
+    id: new Date().getTime().toString(),
+    title: req?.body?.title,
+    isComplete: false,
+    createdAt: `${currentDate.getDate()}/${
+      currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()}`,
+    description: req?.body?.description,
+  };
+  await todosModel.push(newTodo).write();
+  res.status(200).json({
+    additionalErrors: null,
+    data: { newTodo },
+    error: false,
+    errorText: '',
+  });
 };
 
 module.exports.todosPutController = async (req, res) => {
-  const {
-    todo: { id, ...restFields },
-  } = req.body;
+  const { updatedTodo } = req.body;
 
-  await todosModel.find({ id }).assign(restFields).write();
-  res.status(200).json({});
+  await todosModel.find({ id: updatedTodo.id }).assign(updatedTodo).write();
+  res.status(200).json({
+    additionalErrors: null,
+    data: { updatedTodo },
+    error: false,
+    errorText: '',
+  });
 };
