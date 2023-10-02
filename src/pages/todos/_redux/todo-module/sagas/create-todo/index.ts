@@ -1,1 +1,1 @@
-export * from './watcher';
+export * from './create-todo-watcher';

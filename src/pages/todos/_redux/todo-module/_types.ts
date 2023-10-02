@@ -8,16 +8,20 @@ export enum ETodosActions {
   CREATE_TODO = 'CREATE_TODO',
   UPDATE_TODO = 'UPDATE_TODO',
   DELETE_TODO = 'DELETE_TODO',
+  CREATE_TODO_SAGA='CREATE_TODO_SAGA',
+  DELETE_TODO_SAGA = 'DELETE_TODO_SAGA',
+  UPDATE_TODO_SAGA = 'UPDATE_TODO_SAGA',
   SET_TODOS_LOADING = 'SET_TODOS_LOADING',
   SET_UPDATE_TODO_ID = 'SET_UPDATE_TODO_ID',
   SET_DELETE_TODO_ID = 'SET_DELETE_TODO_ID',
-  SET_NEW_TODO_TITLE = 'SET_NEW_TODO_TITLE',
 }
 
 export type TodoType = {
   id: string;
   title: string;
   isComplete: boolean;
+  createdAt: string;
+  description: string;
 };
 export type TodoStateType = {
   isLoading: boolean;
