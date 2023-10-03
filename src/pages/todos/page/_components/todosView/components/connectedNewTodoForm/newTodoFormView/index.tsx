@@ -27,7 +27,7 @@ export const NewTodoFormView = ({
 }: PropsType) => {
   return (
     <div className={cn(`${BLOCK_NAME}__newTodo`)}>
-      <div className={cn(`${BLOCK_NAME}__inputs_wrapper`)}>
+      <div className={cn(`${BLOCK_NAME}__inputsWrapper`)}>
         <SimpleInput
           id="add-todo-title"
           name="add-todo-title"
