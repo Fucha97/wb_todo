@@ -1,9 +1,6 @@
-@import "@wildberries/ui-kit/lib/styles/constants.module.scss";
-@import "@wildberries/ui-kit/lib/styles/media.module.scss";
-
 .TodoCard {
   align-items: flex-start;
-  border: 1px solid $color-bg-plate-1;
+  border: 1px solid #d1cfd7;
   border-radius: 8px;
   display: flex;
   gap: 16px;

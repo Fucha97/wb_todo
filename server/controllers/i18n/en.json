@@ -3,11 +3,18 @@
     "title": "TodoWB",
     "newTodoForm": {
       "title": "Enter title for new task",
-      "description": "Enter description for new task"
+      "description": "Enter description for new task",
+      "addButtonTitle": "Add"
     },
     "updateTodoForm": {
       "title": "Enter new title",
-      "description": "Enter new description"
+      "description": "Enter new description",
+      "saveButtonTitle": "Save",
+      "closeButtonTitle": "Close"
+    },
+    "todoItem": {
+      "updateButtonTitle": "Update",
+      "deleteButtonTitle": "Delete"
     }
   }
 }

@@ -1,11 +1,18 @@
 {
-    "title": "TodoWB",
-    "newTodoForm": {
-      "title" : "Введите название новой задачи", 
-      "description": "Введите описание новой задачи"
-    },
-    "updateTodoForm" : {
-      "title" : "Введите новое название",
-      "description" : "Введите новое описание"
-    }
+  "title": "TodoWB",
+  "newTodoForm": {
+    "title": "Введите название новой задачи",
+    "description": "Введите описание новой задачи",
+    "addButtonTitle": "Добавить"
+  },
+  "updateTodoForm": {
+    "title": "Введите новое название",
+    "description": "Введите новое описание",
+    "saveButtonTitle": "Сохранить",
+    "closeButtonTitle": "Закрыть"
+  },
+  "todoItem": {
+    "updateButtonTitle": "Изменить",
+    "deleteButtonTitle": "Удалить"
   }
+}
