@@ -14,29 +14,38 @@ export type PropsType = TodoType & {
   onUpdateTodoClick?: (id: TodoType['id']) => void;
   updateTodo: (todo: TodoType) => void;
   deleteTodo: (id: TodoType['id']) => void;
+  id: TodoType['id'];
+  createdAt: TodoType['createdAt'];
+  title: TodoType['title'];
+  description: TodoType['description'];
+  isComplete: TodoType['isComplete'];
 };
 export const TodoCard = ({
   onUpdateTodoClick,
-  updateTodo,
   deleteTodo,
-  ...todoProps
+  updateTodo,
+  id,
+  title,
+  description,
+  createdAt,
+  isComplete,
 }: PropsType) => {
   const handlerUpdateTodoClick = () => {
-    onUpdateTodoClick(todoProps.id);
+    onUpdateTodoClick(id);
   };
   const handlerCompletedChange = () => {
-    updateTodo({ ...todoProps, isComplete: !todoProps.isComplete });
+    updateTodo({ id, title, description, createdAt, isComplete: !isComplete });
   };
   const handlerDeleteClick = () => {
-    deleteTodo(todoProps.id);
+    deleteTodo(id);
   };
 
   return (
     <div className={cn(BLOCK_NAME)}>
       <div className={cn(`${BLOCK_NAME}__toggle`)}>
         <Checkbox
-          checked={todoProps.isComplete}
-          id={todoProps.id}
+          checked={isComplete}
+          id={id}
           name="content"
           onChange={handlerCompletedChange}
           toggle
@@ -44,17 +53,17 @@ export const TodoCard = ({
       </div>
       <div className={cn(`${BLOCK_NAME}__content`)}>
         <div className={cn(`${BLOCK_NAME}__truncate`)}>
-          <Text color="black" size="h2" text={todoProps.title} />
+          <Text color="black" size="h2" text={title} />
         </div>
         <div className={cn(`${BLOCK_NAME}__truncate`)}>
           <Text
             color="black"
             size="h5-bold"
-            text={`Created date: ${todoProps.createdAt}`}
+            text={`Created date: ${createdAt}`}
           />
         </div>
         <div className={cn(`${BLOCK_NAME}__truncate`)}>
-          <Text color="black" size="h3-bold" text={todoProps.description} />
+          <Text color="black" size="h3-bold" text={description} />
         </div>
       </div>
       <div className={cn(`${BLOCK_NAME}__controls`)}>
