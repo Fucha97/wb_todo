@@ -1,38 +1,32 @@
 import React from 'react';
-import {
-  // getTodosAction,
-  selectTodos,
-  deleteTodoActionSaga,
-  updateTodoActionSaga,
-  setUpdateTodoIdAction,
-} from '@/pages/todos/_redux/todo-module';
+import { TodoType } from '@/pages/todos/_redux/todo-module';
 import { TodoCard } from '@/pages/todos/page/_components/todosView/components/connectedTodoList/todoListView/todoCard';
 
 type PropsType = {
-  todos: ReturnType<typeof selectTodos>;
-  setUpdateTodoId: typeof setUpdateTodoIdAction;
-  updateTodo: typeof updateTodoActionSaga;
-  deleteTodo: typeof deleteTodoActionSaga;
+  todoItems: Array<TodoType>;
+  onUpdateTodoClick: (id: TodoType['id']) => void;
+  onUpdateTodo: (newTodo: TodoType) => void;
+  onDeleteTodo: (id: TodoType['id']) => void;
 };
 
 export const TodoListView = ({
-  todos,
-  setUpdateTodoId,
-  updateTodo,
-  deleteTodo,
+  todoItems,
+  onUpdateTodoClick,
+  onUpdateTodo,
+  onDeleteTodo,
 }: PropsType) => (
   <div>
-    {todos.map(({ id, isComplete, title, description, createdAt }) => (
+    {todoItems.map(({ id, isComplete, title, description, createdAt }) => (
       <TodoCard
         key={id}
         createdAt={createdAt}
-        deleteTodo={deleteTodo}
         description={description}
         id={id}
         isComplete={isComplete}
-        onUpdateTodoClick={setUpdateTodoId}
+        onDeleteTodo={onDeleteTodo}
+        onUpdateTodo={onUpdateTodo}
+        onUpdateTodoClick={onUpdateTodoClick}
         title={title}
-        updateTodo={updateTodo}
       />
     ))}
   </div>

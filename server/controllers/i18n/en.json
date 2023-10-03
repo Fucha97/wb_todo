@@ -7,14 +7,16 @@
       "addButtonTitle": "Add"
     },
     "updateTodoForm": {
-      "title": "Enter new title",
-      "description": "Enter new description",
+      "modalTitle" : "Update todo",
+      "titleInputPlaceholder": "Enter new title",
+      "descriptionInputPlaceholder": "Enter new description",
       "saveButtonTitle": "Save",
       "closeButtonTitle": "Close"
     },
     "todoItem": {
       "updateButtonTitle": "Update",
-      "deleteButtonTitle": "Delete"
+      "deleteButtonTitle": "Delete",
+      "createdAtTitle" : "Create date : {{createdAt}}"
     }
   }
 }

@@ -16,7 +16,8 @@ type PropsType = {
   isModalOpen: ReturnType<typeof selectUpdateTodoModalOpen>;
   actionsConfig: ActionsConfigType;
   onCloseModalClick: () => void;
-  onChangeInputValue: (event: SimpleInputBlurEventType) => void;
+  onChangeInputDescription: (event: SimpleInputBlurEventType) => void;
+  onChangeInputTitle: (event: SimpleInputBlurEventType) => void;
   currentTodo: TodoType;
 };
 
@@ -24,7 +25,8 @@ export const UpdateTodoModalView = ({
   isModalOpen,
   actionsConfig,
   onCloseModalClick,
-  onChangeInputValue,
+  onChangeInputTitle,
+  onChangeInputDescription,
   currentTodo,
 }: PropsType) => (
   <Modal
@@ -32,20 +34,22 @@ export const UpdateTodoModalView = ({
     isOpened={isModalOpen}
     isShowCloseIcon
     onClose={onCloseModalClick}
-    title="Update todo"
+    title={i18next.t(TRANSLATIONS.updateTodoForm.modalTitle)}
   >
     <SimpleInput
       id="update-todo-title"
       name="update-todo-title"
-      onChange={onChangeInputValue}
-      placeholder={i18next.t(TRANSLATIONS.updateTodoForm.title)}
+      onChange={onChangeInputTitle}
+      placeholder={i18next.t(TRANSLATIONS.updateTodoForm.titleInputPlaceholder)}
       value={currentTodo?.title || ''}
     />
     <SimpleInput
       id="update-todo-description"
       name="update-todo-description"
-      onChange={onChangeInputValue}
-      placeholder={i18next.t(TRANSLATIONS.updateTodoForm.description)}
+      onChange={onChangeInputDescription}
+      placeholder={i18next.t(
+        TRANSLATIONS.updateTodoForm.descriptionInputPlaceholder,
+      )}
       value={currentTodo?.description || ''}
     />
   </Modal>

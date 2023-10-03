@@ -12,7 +12,8 @@ const BLOCK_NAME = 'NewTodoForm';
 
 type PropsType = {
   loading: ReturnType<typeof selectTodosLoading>;
-  onChangeInput: (event: SimpleInputChangeEventType) => void;
+  onChangeDescription: (event: SimpleInputChangeEventType) => void;
+  onChangeTitle: (event: SimpleInputChangeEventType) => void;
   onClickCreate: () => void;
   newTodo: { title: string; description: string };
   todoCreateDisabled: boolean;
@@ -20,7 +21,8 @@ type PropsType = {
 
 export const NewTodoFormView = ({
   loading,
-  onChangeInput,
+  onChangeDescription,
+  onChangeTitle,
   onClickCreate,
   newTodo,
   todoCreateDisabled,
@@ -31,14 +33,14 @@ export const NewTodoFormView = ({
         <SimpleInput
           id="add-todo-title"
           name="add-todo-title"
-          onChange={onChangeInput}
+          onChange={onChangeTitle}
           placeholder={i18next.t(TRANSLATIONS.newTodoForm.title)}
           value={newTodo.title}
         />
         <SimpleInput
           id="add-todo-description"
           name="add-todo-description"
-          onChange={onChangeInput}
+          onChange={onChangeDescription}
           placeholder={i18next.t(TRANSLATIONS.newTodoForm.description)}
           value={newTodo.description}
         />

@@ -6,13 +6,15 @@
     "addButtonTitle": "Добавить"
   },
   "updateTodoForm": {
-    "title": "Введите новое название",
-    "description": "Введите новое описание",
+    "modalTitle" : "Редактирование задачи",
+    "titleInputPlaceholder": "Введите новое название",
+    "descriptionInputPlaceholder": "Введите новое описание",
     "saveButtonTitle": "Сохранить",
     "closeButtonTitle": "Закрыть"
   },
   "todoItem": {
     "updateButtonTitle": "Изменить",
-    "deleteButtonTitle": "Удалить"
+    "deleteButtonTitle": "Удалить",
+    "createdAtTitle" : "Дата создания : {{createdAt}}"
   }
 }

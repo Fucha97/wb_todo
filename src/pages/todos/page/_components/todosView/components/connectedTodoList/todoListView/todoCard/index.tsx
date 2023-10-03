@@ -12,8 +12,8 @@ const BLOCK_NAME = 'TodoCard';
 
 export type PropsType = TodoType & {
   onUpdateTodoClick?: (id: TodoType['id']) => void;
-  updateTodo: (todo: TodoType) => void;
-  deleteTodo: (id: TodoType['id']) => void;
+  onUpdateTodo: (todo: TodoType) => void;
+  onDeleteTodo: (id: TodoType['id']) => void;
   id: TodoType['id'];
   createdAt: TodoType['createdAt'];
   title: TodoType['title'];
@@ -22,8 +22,8 @@ export type PropsType = TodoType & {
 };
 export const TodoCard = ({
   onUpdateTodoClick,
-  deleteTodo,
-  updateTodo,
+  onDeleteTodo,
+  onUpdateTodo,
   id,
   title,
   description,
@@ -34,10 +34,16 @@ export const TodoCard = ({
     onUpdateTodoClick(id);
   };
   const handlerCompletedChange = () => {
-    updateTodo({ id, title, description, createdAt, isComplete: !isComplete });
+    onUpdateTodo({
+      id,
+      title,
+      description,
+      createdAt,
+      isComplete: !isComplete,
+    });
   };
   const handlerDeleteClick = () => {
-    deleteTodo(id);
+    onDeleteTodo(id);
   };
 
   return (
@@ -59,7 +65,9 @@ export const TodoCard = ({
           <Text
             color="black"
             size="h5-bold"
-            text={`Created date: ${createdAt}`}
+            text={i18next.t(TRANSLATIONS.todoItem.createdAtTitle, {
+              createdAt,
+            })}
           />
         </div>
         <div className={cn(`${BLOCK_NAME}__truncate`)}>

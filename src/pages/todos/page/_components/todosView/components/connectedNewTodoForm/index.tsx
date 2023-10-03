@@ -5,13 +5,19 @@ import {
   createTodoActionSaga,
   selectTodosLoading,
   TodoStorageStateType,
+  TodoType,
 } from '@/pages/todos/_redux/todo-module';
 import { NewTodoFormView } from './newTodoFormView';
 
-type PropsType = {
+type MapStateToPropsType = {
   loading: ReturnType<typeof selectTodosLoading>;
+};
+
+type MapDispatchToPropsType = {
   createTodo: typeof createTodoActionSaga;
 };
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 export const NewTodoFormWrapper = ({ loading, createTodo }: PropsType) => {
   const [newTodo, setNewTodo] = useState<{
@@ -20,17 +26,23 @@ export const NewTodoFormWrapper = ({ loading, createTodo }: PropsType) => {
   }>({ title: '', description: '' });
   const todoCreateDisabled = newTodo.title.trim().length === 0;
 
-  const handlerChangeTodo = (property: string, value: string) => {
+  const handlerChangeTodo = <Key extends keyof TodoType>(
+    property: Key,
+    value: TodoType[Key],
+  ) => {
     setNewTodo((prev) => ({ ...prev, [property]: value }));
   };
 
-  const handlerChangeInput: SimpleInputPropsType['onChange'] = ({
-    name,
+  const handlerChangeTitleInput: SimpleInputPropsType['onChange'] = ({
     value,
   }) => {
-    const splitedName = name.split('-');
-    const currentProperty = splitedName[splitedName.length - 1];
-    handlerChangeTodo(currentProperty, value);
+    handlerChangeTodo('title', value);
+  };
+
+  const handlerChangeDescriptionInput: SimpleInputPropsType['onChange'] = ({
+    value,
+  }) => {
+    handlerChangeTodo('description', value);
   };
 
   const handleTodoCreate = () => {
@@ -42,18 +54,19 @@ export const NewTodoFormWrapper = ({ loading, createTodo }: PropsType) => {
     <NewTodoFormView
       loading={loading}
       newTodo={newTodo}
-      onChangeInput={handlerChangeInput}
+      onChangeDescription={handlerChangeDescriptionInput}
+      onChangeTitle={handlerChangeTitleInput}
       onClickCreate={handleTodoCreate}
       todoCreateDisabled={todoCreateDisabled}
     />
   );
 };
 
-const masStateToProps = (state: TodoStorageStateType) => ({
+const masStateToProps = (state: TodoStorageStateType): MapStateToPropsType => ({
   loading: selectTodosLoading(state),
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: MapDispatchToPropsType = {
   createTodo: createTodoActionSaga,
 };
 

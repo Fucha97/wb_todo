@@ -3,7 +3,6 @@ import { ActionsConfigType, SimpleInputPropsType } from '@wildberries/ui-kit';
 import i18next from 'i18next';
 import { connect } from 'react-redux';
 import {
-  deleteTodoActionSaga,
   selectTodosLoading,
   selectUpdateTodo,
   selectUpdateTodoModalOpen,
@@ -15,13 +14,18 @@ import {
 import { TRANSLATIONS } from '@/pages/todos/_constants/translations';
 import { UpdateTodoModalView } from './updateTodoModal';
 
-type PropsType = {
-  updateTodoData: ReturnType<typeof selectUpdateTodo>;
-  isModalOpen: ReturnType<typeof selectUpdateTodoModalOpen>;
-  loading: ReturnType<typeof selectTodosLoading>;
+type MapDispatchToPropsType = {
   updateTodo: typeof updateTodoActionSaga;
   setUpdateTodoId: typeof setUpdateTodoIdAction;
 };
+
+type MapStateToPropsType = {
+  updateTodoData: ReturnType<typeof selectUpdateTodo>;
+  isModalOpen: ReturnType<typeof selectUpdateTodoModalOpen>;
+  loading: ReturnType<typeof selectTodosLoading>;
+};
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 export const UpdateTodoModalWrapper = ({
   updateTodoData,
@@ -42,20 +46,26 @@ export const UpdateTodoModalWrapper = ({
     setUpdateTodoId(null);
   }, [currentTodo, updateTodo, setUpdateTodoId]);
 
-  const handlerChangeTodo = (property: string, value: string) => {
+  const handlerChangeTodo = <Key extends keyof TodoType>(
+    property: Key,
+    value: TodoType[Key],
+  ) => {
     setCurrentTodo((prev) => ({
       ...prev,
       [property]: value,
     }));
   };
 
-  const handlerhangeInputValue: SimpleInputPropsType['onChange'] = ({
+  const handlerChangeInputTitle: SimpleInputPropsType['onChange'] = ({
     value,
-    name,
   }) => {
-    const splitedName = name.split('-');
-    const currentProperty = splitedName[splitedName.length - 1];
-    handlerChangeTodo(currentProperty, value);
+    handlerChangeTodo('title', value);
+  };
+
+  const handlerChangeDescriptionTitle: SimpleInputPropsType['onChange'] = ({
+    value,
+  }) => {
+    handlerChangeTodo('description', value);
   };
 
   const actionsConfig: ActionsConfigType = useMemo(
@@ -82,7 +92,9 @@ export const UpdateTodoModalWrapper = ({
   );
 
   useEffect(() => {
-    setCurrentTodo(updateTodoData);
+    if (updateTodoData) {
+      setCurrentTodo(updateTodoData);
+    }
   }, [updateTodoData]);
 
   return (
@@ -90,21 +102,21 @@ export const UpdateTodoModalWrapper = ({
       actionsConfig={actionsConfig}
       currentTodo={currentTodo}
       isModalOpen={isModalOpen}
-      onChangeInputValue={handlerhangeInputValue}
+      onChangeInputDescription={handlerChangeDescriptionTitle}
+      onChangeInputTitle={handlerChangeInputTitle}
       onCloseModalClick={handlerCloseModalClick}
     />
   );
 };
 
-const mapStateToProps = (state: TodoStorageStateType) => ({
+const mapStateToProps = (state: TodoStorageStateType): MapStateToPropsType => ({
   isModalOpen: selectUpdateTodoModalOpen(state),
   loading: selectTodosLoading(state),
   updateTodoData: selectUpdateTodo(state),
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: MapDispatchToPropsType = {
   setUpdateTodoId: setUpdateTodoIdAction,
-  deleteTodo: deleteTodoActionSaga,
   updateTodo: updateTodoActionSaga,
 };
 

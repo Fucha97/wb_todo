@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteTodoActionSaga,
@@ -6,17 +6,23 @@ import {
   selectTodos,
   setUpdateTodoIdAction,
   TodoStorageStateType,
+  TodoType,
   updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
 import { TodoListView } from './todoListView';
 
-type PropsType = {
+type MapStateToPropsType = {
   todos: ReturnType<typeof selectTodos>;
+};
+
+type MapDispatchToPropsType = {
   setUpdateTodoId: typeof setUpdateTodoIdAction;
   updateTodo: typeof updateTodoActionSaga;
   deleteTodo: typeof deleteTodoActionSaga;
   getTodos: typeof getTodosAction;
 };
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 export const TodoListWrapper = ({
   todos,
@@ -29,21 +35,42 @@ export const TodoListWrapper = ({
     getTodos();
   }, [getTodos]);
 
+  const onDeleteTodo = useCallback(
+    (id: TodoType['id']) => {
+      deleteTodo(id);
+    },
+    [deleteTodo],
+  );
+
+  const onUpdateTodoIdClick = useCallback(
+    (id: TodoType['id']) => {
+      setUpdateTodoId(id);
+    },
+    [setUpdateTodoId],
+  );
+
+  const onUpdateTodo = useCallback(
+    (newTodo: TodoType) => {
+      updateTodo(newTodo);
+    },
+    [updateTodo],
+  );
+
   return (
     <TodoListView
-      deleteTodo={deleteTodo}
-      setUpdateTodoId={setUpdateTodoId}
-      todos={todos}
-      updateTodo={updateTodo}
+      onDeleteTodo={onDeleteTodo}
+      onUpdateTodo={onUpdateTodo}
+      onUpdateTodoClick={onUpdateTodoIdClick}
+      todoItems={todos}
     />
   );
 };
 
-const mapStateToProps = (state: TodoStorageStateType) => ({
+const mapStateToProps = (state: TodoStorageStateType): MapStateToPropsType => ({
   todos: selectTodos(state),
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: MapDispatchToPropsType = {
   updateTodo: updateTodoActionSaga,
   setUpdateTodoId: setUpdateTodoIdAction,
   deleteTodo: deleteTodoActionSaga,
