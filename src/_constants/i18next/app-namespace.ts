@@ -1,1 +1,1 @@
-export const APP_NAMESPACE = 'wb_todo';
+export const APP_NAMESPACE = 'wbTodo';
