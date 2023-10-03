@@ -1,8 +1,10 @@
 import { Reducer } from 'redux';
+import { TodoStateType } from '@/pages/todos/_redux/todo-module/_types';
 import {
-  ETodosActions,
-  TodoStateType,
-} from '@/pages/todos/_redux/todo-module/_types';
+  setTodosAction,
+  setTodosLoadingAction,
+  setUpdateTodoIdAction,
+} from './actions';
 
 export const initialTodoSlice: TodoStateType = {
   isLoading: false,
@@ -15,17 +17,17 @@ export const todoReducer: Reducer<TodoStateType> = (
   { type, payload },
 ) => {
   switch (type) {
-    case ETodosActions.SET_TODOS_LOADING:
+    case setTodosLoadingAction.type:
       return {
         ...state,
         isLoading: payload,
       };
-    case ETodosActions.SET_TODOS:
+    case setTodosAction.type:
       return {
         ...state,
         todos: payload,
       };
-    case ETodosActions.SET_UPDATE_TODO_ID:
+    case setUpdateTodoIdAction.type:
       return {
         ...state,
         updateTodoId: payload,

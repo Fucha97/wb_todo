@@ -2,6 +2,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import { deleteTodoRequest } from '@/api/requests/todos/delete';
 import {
+  selectTodoSlice,
   setTodosAction,
   setTodosLoadingAction,
 } from '@/pages/todos/_redux/todo-module';
@@ -13,9 +14,7 @@ type ParamsType = {
 
 export function* deleteTodoWorkerSaga({ id }: ParamsType) {
   try {
-    const currentState = yield select(
-      (state) => state['todo-module_todosSlice'],
-    );
+    const currentState = yield select(selectTodoSlice);
 
     yield put(setTodosLoadingAction(true));
 

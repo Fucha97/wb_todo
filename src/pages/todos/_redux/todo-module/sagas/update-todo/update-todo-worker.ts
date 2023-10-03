@@ -4,6 +4,7 @@ import {
   TodoType,
   setTodosLoadingAction,
   setTodosAction,
+  selectTodoSlice,
 } from '@/pages/todos/_redux/todo-module';
 import { updateTodoRequest } from '@/api/requests/todos/update';
 
@@ -13,9 +14,7 @@ type IParams = {
 
 export function* updateTodoWorkerSaga({ updatedTodo }: IParams) {
   try {
-    const currentState = yield select(
-      (state) => state['todo-module_todosSlice'],
-    );
+    const currentState = yield select(selectTodoSlice);
 
     yield put(setTodosLoadingAction(true));
 

@@ -4,6 +4,7 @@ import {
   TodoType,
   setTodosLoadingAction,
   setTodosAction,
+  selectTodoSlice,
 } from '@/pages/todos/_redux/todo-module';
 import { createTodoRequest } from '@/api/requests/todos/create';
 
@@ -14,9 +15,7 @@ type ParamsType = {
 
 export function* createTodoWorkerSaga(newTodoParams: ParamsType) {
   try {
-    const currentState = yield select(
-      (state) => state['todo-module_todosSlice'],
-    );
+    const currentState = yield select(selectTodoSlice);
 
     yield put(setTodosLoadingAction(true));
 

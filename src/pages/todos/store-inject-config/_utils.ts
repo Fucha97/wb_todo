@@ -8,13 +8,15 @@ import {
   stopLoadingAction,
 } from '../_redux/todo-module/actions';
 
+const responseFormatter = ({
+  data,
+}: IResponse<{ todos: Array<TodoType> }>): Array<TodoType> => data.todos;
+
 export const getTodosConfig = (): InitLoadManagerRequestOptionsType => {
   const config: InitLoadManagerRequestOptionsType = {
     request: getTodosRequest,
     actionSuccess: setTodosAction,
-    responseDataFormatter: ({
-      data,
-    }: IResponse<{ todos: Array<TodoType> }>): Array<TodoType> => data.todos,
+    responseDataFormatter: responseFormatter,
   };
 
   return {
