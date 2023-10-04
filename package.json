@@ -26,7 +26,7 @@
     "@wildberries/portal-routes": "1.1.41",
     "@wildberries/preview-component": "0.0.5",
     "@wildberries/service-logger": "1.1.3",
-    "@wildberries/service-router": "1.0.10",
+    "@wildberries/service-router": "1.0.11",
     "@wildberries/ui-kit": "1.3.1",
     "@wildberries/wb-front-analytics-tracker": "1.1.7",
     "@wildberries/webpack-config-stream": "2.0.6",

@@ -42,6 +42,8 @@ import '@/styles/variables.module.scss';
 
 const ROOT_ELEMENT = document.getElementById('root');
 
+const initialLocale = getLocale({ isFromCookie: true });
+
 const router = configureRouter({
   defaultRoute: 'todo',
   eventNameToCancelRequests: ABORT_REQUEST_EVENT_NAME,
@@ -64,7 +66,7 @@ const store = createAppStore({
 });
 
 const i18nextConfig = {
-  getLocale,
+  getLocale: () => getLocale({ isFromCookie: true }),
   i18next,
   i18nextRequest,
   actionToStartLoading: starti18nextLoadingAction,
@@ -81,7 +83,7 @@ router.setDependencies({
 
 router.add(routes);
 
-geti18Next({ appNamespace: APP_NAMESPACE, locale: getLocale() }).then(() =>
+geti18Next({ appNamespace: APP_NAMESPACE, locale: initialLocale }).then(() =>
   router.start(() => {
     ReactDOM.render(
       <Provider store={store}>
