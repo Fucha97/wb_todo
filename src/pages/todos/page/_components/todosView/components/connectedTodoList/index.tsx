@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteTodoActionSaga,
@@ -35,26 +35,17 @@ export const TodoListWrapper = ({
     getTodos();
   }, [getTodos]);
 
-  const onDeleteTodo = useCallback(
-    (id: TodoType['id']) => {
-      deleteTodo(id);
-    },
-    [deleteTodo],
-  );
+  const onDeleteTodo = (id: TodoType['id']) => {
+    deleteTodo(id);
+  };
 
-  const onUpdateTodoIdClick = useCallback(
-    (id: TodoType['id']) => {
-      setUpdateTodoId(id);
-    },
-    [setUpdateTodoId],
-  );
+  const onUpdateTodoIdClick = (id: TodoType['id']) => {
+    setUpdateTodoId(id);
+  };
 
-  const onUpdateTodo = useCallback(
-    (newTodo: TodoType) => {
-      updateTodo(newTodo);
-    },
-    [updateTodo],
-  );
+  const onUpdateTodo = (newTodo: TodoType) => {
+    updateTodo(newTodo);
+  };
 
   return (
     <TodoListView
