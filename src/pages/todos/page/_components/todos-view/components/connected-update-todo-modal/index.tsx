@@ -12,7 +12,7 @@ import {
   updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
 import { TRANSLATIONS } from '@/pages/todos/_constants/translations';
-import { UpdateTodoModalView } from './updateTodoModal';
+import { UpdateTodoModalView } from './update-todo-modal';
 
 type MapDispatchToPropsType = {
   updateTodo: typeof updateTodoActionSaga;

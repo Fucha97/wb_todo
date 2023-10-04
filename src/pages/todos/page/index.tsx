@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import classnames from 'classnames/bind';
 import styles from './index.module.scss';
-import { TodosView } from './_components/todosView';
+import { TodosView } from './_components/todos-view';
 
 const cn = classnames.bind(styles);
 

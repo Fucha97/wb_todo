@@ -9,7 +9,7 @@ import {
   TodoType,
   updateTodoActionSaga,
 } from '@/pages/todos/_redux/todo-module';
-import { TodoListView } from './todoListView';
+import { TodoListView } from './todo-list-view';
 
 type MapStateToPropsType = {
   todos: ReturnType<typeof selectTodos>;

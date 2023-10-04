@@ -1,6 +1,6 @@
 import React from 'react';
 import { TodoType } from '@/pages/todos/_redux/todo-module';
-import { TodoCard } from '@/pages/todos/page/_components/todosView/components/connectedTodoList/todoListView/todoCard';
+import { TodoCard } from '@/pages/todos/page/_components/todos-view/components/connected-todo-list/todo-list-view/todo-card';
 
 type PropsType = {
   todoItems: Array<TodoType>;

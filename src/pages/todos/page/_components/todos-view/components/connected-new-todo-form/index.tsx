@@ -7,7 +7,7 @@ import {
   TodoStorageStateType,
   TodoType,
 } from '@/pages/todos/_redux/todo-module';
-import { NewTodoFormView } from './newTodoFormView';
+import { NewTodoFormView } from './new-todo-form-view';
 
 type MapStateToPropsType = {
   loading: ReturnType<typeof selectTodosLoading>;
