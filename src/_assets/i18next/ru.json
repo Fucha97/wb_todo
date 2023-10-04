@@ -1,0 +1,20 @@
+{
+    "title": "TodoWB",
+    "newTodoForm": {
+      "title": "Введите название новой задачи",
+      "description": "Введите описание новой задачи",
+      "addButtonTitle": "Добавить"
+    },
+    "updateTodoForm": {
+      "modalTitle" : "Редактирование задачи",
+      "titleInputPlaceholder": "Введите новое название",
+      "descriptionInputPlaceholder": "Введите новое описание",
+      "saveButtonTitle": "Сохранить",
+      "closeButtonTitle": "Закрыть"
+    },
+    "todoItem": {
+      "updateButtonTitle": "Изменить",
+      "deleteButtonTitle": "Удалить",
+      "createdAtTitle" : "Дата создания : {createdAt}"
+    }
+  }
