@@ -1,6 +1,6 @@
 import 'fast-text-encoding/text';
-/* 
-    if you need some polyfills and you are not in "rus" or "euro" version
+/*
+    if you need some polyfills, and you are not in "rus" or "euro" version
     please insert below (package is included)
     import 'react-app-polyfill/stable';
 */
@@ -43,7 +43,7 @@ import '@/styles/variables.module.scss';
 const ROOT_ELEMENT = document.getElementById('root');
 
 const router = configureRouter({
-  defaultRoute: 'home',
+  defaultRoute: 'todo',
   eventNameToCancelRequests: ABORT_REQUEST_EVENT_NAME,
   // uncomment if you need envs from window (for example for request endpoints)
   // enableWindowEnvsMiddleware: true,
