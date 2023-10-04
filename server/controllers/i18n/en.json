@@ -16,7 +16,7 @@
     "todoItem": {
       "updateButtonTitle": "Update",
       "deleteButtonTitle": "Delete",
-      "createdAtTitle" : "Create date : {{createdAt}}"
+      "createdAtTitle" : "Create date : {createdAt}"
     }
   }
 }
